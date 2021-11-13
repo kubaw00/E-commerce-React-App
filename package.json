@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MERN App",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
@@ -21,7 +22,8 @@
   "homepage": "https://github.com/kubaw00/E-commerce-react-app#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
   },
   "devDependencies": {
     "concurrently": "^6.4.0",
