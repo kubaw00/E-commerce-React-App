@@ -9,8 +9,8 @@ import {
   Form,
   Button,
   Card,
-  ListGroupItem,
   Image,
+  ListGroupItem,
 } from 'react-bootstrap';
 import { addToCart } from '../actions/cartActions';
 import { useNavigate, useLocation, useParams } from 'react-router';
@@ -24,14 +24,12 @@ const CartScreen = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
 
-  useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, qty));
-    }
-  }, [dispatch, qty, productId]);
-
   const removeFromCartHandler = (id) => {
     console.log('remove');
+  };
+
+  const checkoutHandler = () => {
+    navigate('/login?regdirect=shipping');
   };
 
   return (
@@ -54,19 +52,23 @@ const CartScreen = () => {
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>{item.price}</Col>
-                  <Col md={2}>
+                  <Col md={3}>
                     <Form.Select
                       as='select'
-                      value={qty}
-                      onChange={(e) =>
+                      value={item.qty}
+                      onChange={(e) => {
                         dispatch(
                           addToCart(item.product, Number(e.target.value))
-                        )
-                      }
+                        );
+                        navigate('/cart');
+                      }}
                     >
+                      <option key={1} value={1}>
+                        1
+                      </option>
                       {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
+                        <option key={x + 2} value={x + 2}>
+                          {x + 2}
                         </option>
                       ))}
                     </Form.Select>
@@ -86,8 +88,31 @@ const CartScreen = () => {
           </ListGroup>
         )}
       </Col>
-      <Col md={2}></Col>
-      <Col md={2}></Col>
+      <Col md={4}>
+        <Card>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h4>
+                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                items
+              </h4>
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
+            </ListGroup.Item>
+            <ListGroup.Item className='d-grid gap-2'>
+              <Button
+                onClick={checkoutHandler}
+                type='button'
+                disabled={cartItems.length === 0}
+              >
+                Proceed To Checkout
+              </Button>
+            </ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </Col>
     </Row>
   );
 };

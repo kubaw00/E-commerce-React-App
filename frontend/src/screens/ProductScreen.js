@@ -16,6 +16,7 @@ import { listProductDetails } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { useNavigate } from 'react-router';
+import { addToCart } from '../actions/cartActions';
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1);
@@ -32,7 +33,8 @@ const ProductScreen = () => {
   // const product = products.find((p) => p._id === id);
 
   const addToCartHandler = () => {
-    navigate(`/cart/${id}?qty=${qty}`);
+    dispatch(addToCart(product._id, qty));
+    navigate(`/cart`);
   };
 
   return (
@@ -94,7 +96,7 @@ const ProductScreen = () => {
                         <Form.Select
                           as='select'
                           value={qty}
-                          onChange={(e) => setQty(e.target.value)}
+                          onChange={(e) => setQty(+e.target.value)}
                         >
                           {[...Array(product.countInStock).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>
