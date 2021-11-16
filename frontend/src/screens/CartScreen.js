@@ -12,7 +12,7 @@ import {
   Image,
   ListGroupItem,
 } from 'react-bootstrap';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import { useNavigate, useLocation, useParams } from 'react-router';
 
 const CartScreen = () => {
@@ -25,7 +25,7 @@ const CartScreen = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   const removeFromCartHandler = (id) => {
-    console.log('remove');
+    dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = () => {
