@@ -19,15 +19,14 @@ const LoginScreen = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     navigate(redirect);
-  //   }
-  // }, [userInfo, redirect, navigate]);
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  });
 
   const submitHandler = (e) => {
     e.preventDefault();
