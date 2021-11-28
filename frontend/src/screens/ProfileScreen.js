@@ -5,6 +5,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { useNavigate } from 'react-router';
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const ProfileScreen = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ const ProfileScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const [message, setMessage] = useState(null);
+  const [profileUpdated, setProfileUpdated] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -29,18 +31,27 @@ const ProfileScreen = () => {
   useEffect(() => {
     if (!userInfo) {
       navigate('/login');
+      return;
     } else {
-      if (!user.name) {
+      if (!user || !user.name) {
         dispatch(getUserDetails('profile'));
-      } else {
-        setName(user.name);
-        setEmail(user.email);
+        return;
       }
+      if (success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
+        dispatch(getUserDetails('profile'));
+        setProfileUpdated(true);
+        return;
+      }
+      setName(user.name);
+      setEmail(user.email);
     }
-  }, [dispatch, navigate, userInfo, user.email, user.name]);
+  }, [dispatch, navigate, userInfo, user, success, message]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    setProfileUpdated(false);
+    setMessage(null);
     if (password !== confirmPassword) {
       setMessage('Password do not match');
     } else {
@@ -54,7 +65,7 @@ const ProfileScreen = () => {
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}
-        {success && <Message variant='success'>Profile Updated</Message>}
+        {profileUpdated && <Message variant='success'>Profile Updated</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId='name'>
