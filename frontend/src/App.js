@@ -9,6 +9,7 @@ import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ShippingScreen from './screens/ShippingScreen';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Container>
           <h1>Welcome to E-commerce App.</h1>
           <Routes>
+            <Route path='/shipping' element={<ShippingScreen />} />
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/profile' element={<ProfileScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
