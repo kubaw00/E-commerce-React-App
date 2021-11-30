@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import { Link } from 'react-router-dom';
@@ -10,16 +10,12 @@ import {
   Button,
   Card,
   Image,
-  ListGroupItem,
 } from 'react-bootstrap';
 import { addToCart, removeFromCart } from '../actions/cartActions';
-import { useNavigate, useLocation, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const CartScreen = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  let { id: productId } = useParams();
-  const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);

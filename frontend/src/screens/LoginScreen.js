@@ -19,12 +19,12 @@ const LoginScreen = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-
+  console.log(location);
   const redirect = location.search ? location.search.split('=')[1] : '/';
-
+  console.log(redirect);
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      navigate('/shipping');
     }
   });
 
@@ -67,7 +67,7 @@ const LoginScreen = () => {
           New Customer?{' '}
           <Link
             to={
-              redirect !== '/' ? `/register?redirect=${redirect}` : '/register'
+              redirect === '/' ? `/register?redirect=${redirect}` : '/register'
             }
           >
             Register
