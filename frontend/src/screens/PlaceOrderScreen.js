@@ -11,6 +11,7 @@ const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
@@ -64,7 +65,8 @@ const PlaceOrderScreen = () => {
               <p>
                 <strong>Address: </strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
-                {cart.shippingAddress.postalCode}{' '}
+                {cart.shippingAddress.postalCode},{' '}
+                {cart.shippingAddress.country}{' '}
               </p>
             </ListGroup.Item>
 
