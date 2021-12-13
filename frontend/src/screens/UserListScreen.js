@@ -4,7 +4,7 @@ import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listUsers } from '../actions/userActions';
+import { listUsers, deleteUser } from '../actions/userActions';
 import { useNavigate } from 'react-router';
 
 const UserListScreen = () => {
@@ -17,16 +17,21 @@ const UserListScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
       navigate('/login');
     }
-  }, [dispatch, navigate, userInfo]);
+  }, [dispatch, navigate, userInfo, successDelete]);
 
   const deleteHandler = (id) => {
-    console.log('delete');
+    if (window.confirm('Are you sure?')) {
+      dispatch(deleteUser(id));
+    }
   };
 
   return (
@@ -64,18 +69,22 @@ const UserListScreen = () => {
                   )}
                 </td>
                 <td>
-                  <Link to={`/user/${user._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
-                      <i className='fas fa-edit'></i>
-                    </Button>
-                    <Button
-                      variant='danger'
-                      className='btn-sm'
-                      onClick={() => deleteHandler(user._id)}
-                    >
-                      <i className='fas fa-trash'></i>
-                    </Button>
-                  </Link>
+                  <Button
+                    as={Link}
+                    to={`/user/${user._id}/edit`}
+                    variant='light'
+                    className='btn-sm'
+                  >
+                    <i className='fas fa-edit'></i>
+                  </Button>
+                  <Button
+                    variant='danger'
+                    className='btn-sm'
+                    disabled={userInfo._id === user._id}
+                    onClick={() => deleteHandler(user._id)}
+                  >
+                    <i className='fas fa-trash'></i>
+                  </Button>
                 </td>
               </tr>
             ))}
