@@ -14,6 +14,7 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
 
 function App() {
   return (
@@ -21,7 +22,6 @@ function App() {
       <Header />
       <main className='py-3'>
         <Container>
-          <h1>Welcome to E-commerce App.</h1>
           <Routes>
             <Route path='/order/:id' element={<OrderScreen />} />
             <Route path='/shipping' element={<ShippingScreen />} />
@@ -34,6 +34,7 @@ function App() {
             <Route path='/cart' element={<CartScreen />} />
             <Route path='/cart/:id' element={<CartScreen />} />
             <Route path='/admin/userlist' element={<UserListScreen />} />
+            <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
             <Route path='/' element={<HomeScreen />} exact />
           </Routes>
         </Container>

@@ -89,7 +89,7 @@ const RegisterScreen = () => {
         </Button>
       </Form>
 
-      <Row>
+      <Row className='py-3'>
         <Col>
           Have an Account?{' '}
           <Link
