@@ -19,12 +19,12 @@ const LoginScreen = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
+
   const redirect = location.search ? location.search.split('=')[1] : '/';
-  console.log(redirect);
+
   useEffect(() => {
     if (userInfo) {
-      navigate('/shipping');
+      navigate('/');
     }
   });
 
