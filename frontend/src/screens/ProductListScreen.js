@@ -10,7 +10,10 @@ import {
   createProduct,
 } from '../actions/productActions';
 import { useNavigate } from 'react-router';
-import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import {
+  PRODUCT_CREATE_RESET,
+  PRODUCT_DETAILS_RESET,
+} from '../constants/productConstants';
 
 const ProductListScreen = () => {
   const dispatch = useDispatch();
@@ -39,6 +42,7 @@ const ProductListScreen = () => {
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
+    dispatch({ type: PRODUCT_DETAILS_RESET });
     if (!userInfo.isAdmin) {
       navigate('/login');
     }
