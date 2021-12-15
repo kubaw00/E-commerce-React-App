@@ -95,7 +95,9 @@ const OrderScreen = () => {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant='success'>Paid on {order.paidAt}</Message>
+                <Message variant='success'>
+                  Paid on {order.paidAt.substring(0, 19)}
+                </Message>
               ) : (
                 <Message variant='danger'>Not paid</Message>
               )}
