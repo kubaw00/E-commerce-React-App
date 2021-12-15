@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +18,7 @@ const ProductEditScreen = () => {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   let { id: productId } = useParams();
 
@@ -25,6 +27,9 @@ const ProductEditScreen = () => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
@@ -66,6 +71,30 @@ const ProductEditScreen = () => {
         countInStock,
       })
     );
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post('/api/upload', formData, config);
+      console.log(data);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setUploading(false);
+    }
   };
 
   return (
@@ -111,6 +140,15 @@ const ProductEditScreen = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+              {/* <Form.File
+                id='img-file'
+                label='Choose file'
+                custom
+                onChange={uploadFileHandler}
+              ></Form.File> */}
+
+              <Form.Control type='file' onChange={uploadFileHandler} />
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group className='py-2' controlId='brand'>
