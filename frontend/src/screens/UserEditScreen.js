@@ -77,7 +77,7 @@ const UserEditScreen = () => {
             <Form.Group controlId='name'>
               <Form.Label>Name</Form.Label>
               <Form.Control
-                type='name'
+                type='text'
                 placeholder='Enter Name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
