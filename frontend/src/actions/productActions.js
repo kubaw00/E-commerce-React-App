@@ -183,15 +183,10 @@ export const createProductReview =
         },
       };
 
-      const { data } = await axios.put(
-        `/api/products/${product._id}`,
-        product,
-        config
-      );
+      await axios.post(`/api/products/${productId}/reviews`, review, config);
 
       dispatch({
         type: PRODUCT_CREATE_REVIEW_SUCCESS,
-        payload: data,
       });
     } catch (error) {
       dispatch({
