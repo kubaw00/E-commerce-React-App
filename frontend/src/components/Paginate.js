@@ -11,7 +11,11 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
             as={Link}
             key={x + 1}
             href={
-              keyword ? `/search/${keyword}/page/${x + 1}` : `/page/${x + 1}`
+              !isAdmin
+                ? keyword
+                  ? `/search/${keyword}/page/${x + 1}`
+                  : `/page/${x + 1}`
+                : `/admin/productlist/${x + 1}`
             }
             active={x + 1 === page}
           >
