@@ -10,6 +10,7 @@ import {
   Form,
 } from 'react-bootstrap';
 import Rating from '../components/Rating';
+import Meta from '../components/Meta';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import {
@@ -73,6 +74,7 @@ const ProductScreen = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col sm={6}>
               <Image src={product.image} alt={product.name} fluid />
