@@ -110,7 +110,7 @@ const OrderScreen = () => {
               </p>
               {order.isDelivered ? (
                 <Message variant='success'>
-                  Delivered on {order.deliveredAt.substring(0, 19)}
+                  Delivered on {order.deliveredAt.substring(0, 10)}
                 </Message>
               ) : (
                 <Message variant='danger'>Not Delivered</Message>
@@ -125,7 +125,7 @@ const OrderScreen = () => {
               </p>
               {order.isPaid ? (
                 <Message variant='success'>
-                  Paid on {order.paidAt.substring(0, 19)}
+                  Paid on {order.paidAt.substring(0, 10)}
                 </Message>
               ) : (
                 <Message variant='danger'>Not paid</Message>
