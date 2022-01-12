@@ -1,4 +1,5 @@
 # ProShop eCommerce Platform
+ [Link to App](https://kubaproshopapp.herokuapp.com/)
 
 > eCommerce platform built with the MERN stack & Redux.
 
