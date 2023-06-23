@@ -16,6 +16,7 @@ const UserEditScreen = () => {
   const [name, setName] = useState('');
 
   let { id: userId } = useParams();
+  console.log(userId);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
